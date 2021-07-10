@@ -1,14 +1,19 @@
-import { ADD_BANKS } from '../types';
+import { ADD_BANKS, SET_LOADING } from '../types';
 
 const reducer = (state, action) => {
 
     switch(action.type){
 
         case ADD_BANKS:
-            console.log("Reducer called")
             return{
                 ...state,
-                banks: [...state.banks, ...action.payload]
+                banks: action.payload
+            }
+
+        case SET_LOADING:
+            return{
+                ...state,
+                loading: action.payload
             }
         default:
             return state
