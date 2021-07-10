@@ -8,8 +8,10 @@ import "./App.css";
 
 const App = () => {
 	const bankContext = useContext(BankContext);
-	const { addBanks, banks, loading } = bankContext;
+	const { addBanks, banks, loading, searchBanks } = bankContext;
+
 	const [state, setState] = useState("MUMBAI");
+  const [query, setQuery] = useState('');
 
 	const getData = useCallback(async () => {
 		const data = await axios.get(
@@ -23,6 +25,12 @@ const App = () => {
 	useEffect(() => {
 		getData();
 	}, [state]);
+
+  const handleSearch = (e) => {
+
+    setQuery(() => e.target.value)
+    searchBanks(query);
+  }
 
 	if (loading) {
 		return <h1>Loading....</h1>;
@@ -44,7 +52,7 @@ const App = () => {
 					</Select>
 				</Box>
         <Box w="30%">
-          <Input placeholder="search" />
+          <Input value={query} placeholder="search" onChange={handleSearch} />
         </Box>
         </HStack>
 				<Flex>

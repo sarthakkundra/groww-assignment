@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import {
     Table,
@@ -40,4 +40,4 @@ const index = ({ banks }) => {
     )
 }
 
-export default index
+export default memo(index)

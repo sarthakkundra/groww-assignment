@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { ADD_BANKS, SET_LOADING } from '../types';
+import { ADD_BANKS, SEARCH_BANK, SET_LOADING } from '../types';
 import BankContext from './BankContext';
 import BankReducer from './BankReducer';
 
@@ -29,12 +29,20 @@ const BankState = (props) => {
         setLoading(false);
     }
 
+    const searchBanks = (query) => {
+        dispatch({
+            type: SEARCH_BANK,
+            payload: query
+        })
+    }
+
     return(
         <BankContext.Provider value={{
             banks: state.banks,
             filtered: state.filtered,
             loading: state.loading,
-            addBanks
+            addBanks,
+            searchBanks
         }}
         >
             {props.children}
