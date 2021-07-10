@@ -16,6 +16,8 @@ const App = () => {
 			`https://vast-shore-74260.herokuapp.com/banks?city=${state}`
 		);
 		addBanks(data.data);
+    // caching API response
+    window.localStorage.setItem(`${state}-banks`, JSON.stringify(data.data));
 	}, [state, addBanks]);
 
 	useEffect(() => {
