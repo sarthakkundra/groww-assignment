@@ -1,12 +1,17 @@
-import React, { memo, useContext } from "react";
+import React, { memo, useContext, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
 import BankContext from "../../context/Bank/BankContext";
-import { Table, Thead, Tbody, Tr, Th, Td, Text } from "@chakra-ui/react";
+import { Table, Thead, Tbody, Tr, Th, Td, Text, Checkbox } from "@chakra-ui/react";
 
 const Index = ({ banks }) => {
 	const bankContext = useContext(BankContext);
 	const { addDetails } = bankContext;
+
+    const favourite = useRef(false);
+    const handleFavourite = (e) => {
+        console.log(favourite.current);
+    }
 	console.log(banks);
 	return (
 		<>
@@ -18,6 +23,7 @@ const Index = ({ banks }) => {
 						<Th>Branch</Th>
 						<Th>Bank ID</Th>
 						<Th>Address</Th>
+                        <Th>Mark as Favourite</Th>
 					</Tr>
 				</Thead>
 				<Tbody>
@@ -52,6 +58,9 @@ const Index = ({ banks }) => {
 								{" "}
 								<Text fontSize='13px'> {bank.address} </Text>{" "}
 							</Td>
+                            <Td onChange = {handleFavourite}>
+                                <Checkbox ref={favourite} />
+                            </Td>
 						</Tr>
 					))}
 				</Tbody>
