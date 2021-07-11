@@ -1,10 +1,12 @@
 import { useEffect, useContext, useState, useCallback, useRef } from "react";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { debounce } from 'lodash';
 import BankContext from "./context/Bank/BankContext";
 import axios from "axios";
 import { Flex, Box, Select, HStack } from "@chakra-ui/react";
 import { Input } from '@chakra-ui/react';
 import Pagination from './Pagination';
+import BankDetails from './pages/BankDetails';
 import "./App.css";
 
 const App = () => {
@@ -43,6 +45,12 @@ const App = () => {
 	} else {
 		return (
 			<>
+      <Router>
+      <Switch>
+      <Route exact path='/details/:id'>
+        <BankDetails />
+      </Route>
+      <Route exact path='/'>
       <HStack>
 				<Box w='20%'>
 					<Select
@@ -72,6 +80,9 @@ const App = () => {
 						{banks.length > 0 && <Pagination data={filtered != null ? filtered : banks} dataLimit={10} pageLimit={5} />}
 					</Box>
 				</Flex>
+        </Route>
+        </Switch>
+        </Router>
 			</>
 		);
 	}

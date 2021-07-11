@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { ADD_BANKS, CLEAR_SEARCH, SEARCH_BANK, SET_LOADING } from '../types';
+import { ADD_BANKS, ADD_DETAILS, CLEAR_SEARCH, SEARCH_BANK, SET_LOADING } from '../types';
 import BankContext from './BankContext';
 import BankReducer from './BankReducer';
 
@@ -8,7 +8,8 @@ const BankState = (props) => {
     const initialState = {
         banks: [],
         filtered: null,
-        loading: true
+        loading: true,
+        bankDetails: {}
     }
 
     const [state, dispatch] = useReducer(BankReducer, initialState);
@@ -36,6 +37,13 @@ const BankState = (props) => {
         })
     }
 
+    const addDetails = (data) => {
+        dispatch({
+            type: ADD_DETAILS,
+            payload: data
+        })
+    }
+
     const clearFilter = () => {
         dispatch({
             type: CLEAR_SEARCH,
@@ -47,9 +55,11 @@ const BankState = (props) => {
             banks: state.banks,
             filtered: state.filtered,
             loading: state.loading,
+            bankDetails: state.bankDetails,
             addBanks,
             searchBanks,
-            clearFilter
+            clearFilter,
+            addDetails
         }}
         >
             {props.children}
