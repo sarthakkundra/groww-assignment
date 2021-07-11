@@ -26,6 +26,7 @@ const index = ({ banks }) => {
                <Th>Address</Th>
            </Tr>
        </Thead>
+       <Tbody>
        {banks.map((bank) => (
            <Tr key={uuidv4()}>
                <Td> <Text fontSize="13px"> { bank.bank_name } </Text> </Td>
@@ -35,6 +36,7 @@ const index = ({ banks }) => {
                <Td> <Text fontSize="13px"> { bank.address } </Text> </Td>
            </Tr>
        ))}
+       </Tbody>
        </Table>
        </>
     )

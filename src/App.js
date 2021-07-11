@@ -1,4 +1,5 @@
-import { useEffect, useContext, useState, useCallback } from "react";
+import { useEffect, useContext, useState, useCallback, useRef } from "react";
+import { debounce } from 'lodash';
 import BankContext from "./context/Bank/BankContext";
 import axios from "axios";
 import { Flex, Box, Select, HStack } from "@chakra-ui/react";
@@ -8,10 +9,11 @@ import "./App.css";
 
 const App = () => {
 	const bankContext = useContext(BankContext);
-	const { addBanks, banks, loading, searchBanks } = bankContext;
+	const { addBanks, banks, loading, searchBanks, filtered, clearFilter } = bankContext;
 
 	const [state, setState] = useState("MUMBAI");
-  const [query, setQuery] = useState('');
+
+  const search = useRef('');
 
 	const getData = useCallback(async () => {
 		const data = await axios.get(
@@ -26,10 +28,14 @@ const App = () => {
 		getData();
 	}, [state]);
 
+  const delayedSearch = debounce((data) => searchBanks(data), 300)
+
   const handleSearch = (e) => {
 
-    setQuery(() => e.target.value)
-    searchBanks(query);
+    if(search.current.value !== '')
+      delayedSearch(e.target.value);
+    else
+      clearFilter();
   }
 
 	if (loading) {
@@ -52,7 +58,7 @@ const App = () => {
 					</Select>
 				</Box>
         <Box w="30%">
-          <Input value={query} placeholder="search" onChange={handleSearch} />
+          <Input ref={search}  placeholder="search" onChange={handleSearch} />
         </Box>
         </HStack>
 				<Flex>
@@ -63,7 +69,7 @@ const App = () => {
 						</ul>
 					</Box>
 					<Box w='50%'>
-						{banks.length > 0 && <Pagination data={banks} dataLimit={10} pageLimit={5} />}
+						{banks.length > 0 && <Pagination data={filtered != null ? filtered : banks} dataLimit={10} pageLimit={5} />}
 					</Box>
 				</Flex>
 			</>

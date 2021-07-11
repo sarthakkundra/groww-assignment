@@ -1,4 +1,4 @@
-import { ADD_BANKS, SEARCH_BANK, SET_LOADING } from '../types';
+import { ADD_BANKS, CLEAR_SEARCH, SEARCH_BANK, SET_LOADING } from '../types';
 
 const reducer = (state, action) => {
 
@@ -11,12 +11,19 @@ const reducer = (state, action) => {
             }
         
         case SEARCH_BANK:
+            console.log(`Payload ${action.payload}`)
             return{
                 ...state,
-                banks: state.banks.filter((bank) => {
+                filtered: state.banks.filter((bank) => {
                     const regex = new RegExp(`${action.payload}`, "gi");
                     return bank.bank_name.match(regex) || bank.address.match(regex);
                 })
+            }
+
+        case CLEAR_SEARCH:
+            return{
+                ...state,
+                filtered: null
             }
         case SET_LOADING:
             return{
