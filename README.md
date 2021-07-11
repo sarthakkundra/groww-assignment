@@ -10,7 +10,7 @@
 
 ## Notable features
 1. Debounced searching for optimization.
-2. Search result caching.
+2. API result caching.
 3. Change number of rows for pagination.
 4. Memoised funcitons for performance optimization.
 
