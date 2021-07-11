@@ -1,7 +1,7 @@
 # Groww Assignment
 
 ## Features
-1. Search banks by name or/and address/
+1. Search banks by name or/and address.
 2. Filter banks by city.
 3. Paginated data.
 4. Change number of rows in paginated data.
