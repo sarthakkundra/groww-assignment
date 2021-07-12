@@ -30,12 +30,25 @@ const App = () => {
 	const search = useRef("");
 
 	const getData = useCallback(async () => {
-		const data = await axios.get(
-			`https://vast-shore-74260.herokuapp.com/banks?city=${state}`
-		);
-		addBanks(data.data);
-		// caching API response
-		window.sessionStorage.setItem(`${state}-banks`, JSON.stringify(data.data));
+		let data;
+		data = window.sessionStorage.getItem(`${state}-banks`);
+    console.log(JSON.parse(data));
+		if (data === null) {
+			data = await axios.get(
+				`https://vast-shore-74260.herokuapp.com/banks?city=${state}`
+			);
+      console.log(data.data)
+			addBanks(data.data);
+
+			// caching API response
+			window.sessionStorage.setItem(
+				`${state}-banks`,
+				JSON.stringify(data.data)
+			);
+			return;
+		}
+
+    addBanks(JSON.parse(data));
 	}, [state, addBanks]);
 
 	useEffect(() => {
@@ -92,12 +105,21 @@ const App = () => {
 								<Box w='50%'>
 									{banks.length > 0 && (
 										<Pagination
-											data={filtered != null && filtered.length > 0 ? filtered : banks}
+											data={
+												filtered != null && filtered.length > 0
+													? filtered
+													: banks
+											}
 											dataLimit={elements}
 											pageLimit={5}
 										/>
 									)}
-									<NumberInput size="sm" onChange={(e) => setElements(e)} defaultValue={10} min={5} max={20}>
+									<NumberInput
+										size='sm'
+										onChange={(e) => setElements(e)}
+										defaultValue={10}
+										min={5}
+										max={20}>
 										<NumberInputField />
 										<NumberInputStepper>
 											<NumberIncrementStepper />
