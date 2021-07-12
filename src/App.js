@@ -15,7 +15,7 @@ import {
 	NumberDecrementStepper,
 } from "@chakra-ui/react";
 import { Input } from "@chakra-ui/react";
-import Pagination from "./Pagination";
+import Pagination from "./components/Pagination/Pagination";
 import BankDetails from "./pages/BankDetails";
 import "./App.css";
 
@@ -106,7 +106,7 @@ const App = () => {
 									{banks.length > 0 && (
 										<Pagination
 											data={
-												filtered != null && filtered.length > 0
+												filtered != null
 													? filtered
 													: banks
 											}

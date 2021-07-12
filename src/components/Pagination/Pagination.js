@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Table from "./components/Table";
+import Table from "../Table";
 import './styles.css'
 
 function Pagination({ data, RenderComponent, pageLimit, dataLimit }) {
