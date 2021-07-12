@@ -35,7 +35,7 @@ const App = () => {
 		);
 		addBanks(data.data);
 		// caching API response
-		window.localStorage.setItem(`${state}-banks`, JSON.stringify(data.data));
+		window.sessionStorage.setItem(`${state}-banks`, JSON.stringify(data.data));
 	}, [state, addBanks]);
 
 	useEffect(() => {
@@ -64,7 +64,7 @@ const App = () => {
 								<Box w='20%'>
 									<Select
 										onChange={(e) => setState(e.target.value)}
-										placeholder='Select option'>
+										value={state}>
 										<option value='MUMBAI' defaultValue>
 											Mumbai
 										</option>
@@ -92,7 +92,7 @@ const App = () => {
 								<Box w='50%'>
 									{banks.length > 0 && (
 										<Pagination
-											data={filtered != null ? filtered : banks}
+											data={filtered != null && filtered.length > 0 ? filtered : banks}
 											dataLimit={elements}
 											pageLimit={5}
 										/>

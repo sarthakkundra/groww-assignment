@@ -23,6 +23,7 @@ const BankState = (props) => {
     }
 
     const addBanks = (data) => {
+        setLoading(true)
         dispatch({
             type: ADD_BANKS,
             payload: data

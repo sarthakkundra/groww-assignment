@@ -59,9 +59,10 @@ function Pagination({ data, RenderComponent, pageLimit, dataLimit }) {
 				))}
 
 				{/* next button */}
+				
 				<button
 					onClick={goToNextPage}
-					className={`next ${currentPage === pages ? "disabled" : ""}`}>
+					className={`next ${getPaginatedData() < 1 ? "disabled" : ""}`}>
 					next
 				</button>
 			</div>
